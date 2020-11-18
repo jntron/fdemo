@@ -1,0 +1,29 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+//RWTexture2D<float4> Result;
+RWStructuredBuffer<float> water;
+    
+inline int fix(int c) {
+    return clamp(c.x, 0, 99);
+}
+
+inline int2 split(uint index) {
+    return int2(index / 100, index % 100);
+}
+
+inline float at(int index, int x, int y) {
+    int2 coords = split(index);
+    return water[(fix(coords.y + y)) * 100 + fix(coords.x + x)];
+}
+
+[numthreads(32,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    // TODO: insert actual code here!
+    float result = ((at(id.x, 1, 0) + at(id.x, -1, 0) + at(id.x, 0, 1) + at(id.x, 0, -1)) / 2.0 - at(id.x, 0, 0))/4.0;
+    water[id.x] = result;
+    //Result[id.xy] = float4(id.x & id.y, (id.x & 15)/15.0, (id.y & 15)/15.0, 0.0);
+}
