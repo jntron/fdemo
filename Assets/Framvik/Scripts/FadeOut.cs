@@ -18,7 +18,7 @@ public class FadeOut : MonoBehaviour
     void Update()
     {
         Color color = material.color;
-        color.a = Mathf.Lerp(1, 0, dt/5f); // fade out
+        color.a = Mathf.Lerp(1f, 0f, dt/5f); // fade out
         material.color = color;
 
         dt += Time.deltaTime;

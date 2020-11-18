@@ -30,10 +30,10 @@ public class GunFire : MonoBehaviour
         float trigger = 0;
         if (leftHand.TryGetFeatureValue(CommonUsages.trigger, out trigger) && trigger > 0.5f && !triggerHit)
         {
-            Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody>().AddForce(transform.up * 500f, ForceMode.VelocityChange);
+            Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody>().AddForce(transform.forward * 100f, ForceMode.VelocityChange);
             triggerHit = true;
         }
-        else if (triggerHit)
+        if (triggerHit && trigger <= 0.5f)
         {
             triggerHit = false;
         }
