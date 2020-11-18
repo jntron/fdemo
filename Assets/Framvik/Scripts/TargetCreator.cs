@@ -16,14 +16,16 @@ public class TargetCreator : MonoBehaviour
     void Update()
     {
         var objects = GameObject.FindGameObjectsWithTag("Target");
-        foreach (var obj in objects)
-        {
-            if (obj.GetComponent<Target>().destroyed)
-                Destroy(obj); //Bugfix? Objekt som skapar andra objekt och blir sedan förstörda ligger kvar i minnet
-        }
+  
         if (objects.Length < 5) //Se till att det alltid finns 5 targets
         {
             var go = Instantiate(target, transform.position + Random.insideUnitSphere * 10f, Quaternion.identity);
+        }
+
+
+        if(Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
         }
     }
 }

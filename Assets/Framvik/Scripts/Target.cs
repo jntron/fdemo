@@ -24,7 +24,9 @@ public class Target : MonoBehaviour
     { 
         counter -= 1;
         Instantiate(pieces, transform.position, transform.rotation);
+        destroyed = true;
         Destroy(gameObject);
+
     }
 
     private void OnDestroy()
