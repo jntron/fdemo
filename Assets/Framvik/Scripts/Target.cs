@@ -23,6 +23,7 @@ public class Target : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     { 
         counter -= 1;
+        Instantiate(pieces, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 
